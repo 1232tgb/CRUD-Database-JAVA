@@ -1,17 +1,16 @@
 package CRUDDataBase;
 
 import DBClasses.DataBaseClass;
-import java.util.Scanner;
+import InputClasses.DataInput;
+
 
 public class DataManager {
 
     private DataBaseClass dbc;
-    private boolean isConnected;
-    private Scanner sc;
+    private boolean isConnected = false;
 
     public DataManager(String usuario, String password) {
-        DataBaseClass dbc = new DataBaseClass();
-        //isConnected = dbc.ConnectDataBase("Thiago", "123");
+        dbc = new DataBaseClass();
         isConnected = dbc.ConnectDataBase(usuario, password);
     }
 
@@ -21,9 +20,9 @@ public class DataManager {
             return;
         }
 
-        String nome = sc.next();
-        int matricula = sc.nextInt();
-        String area = sc.next();
+        String nome = DataInput.GetText("Entre com o nome");
+        int matricula = DataInput.GetNumber("Enter com a matricula");
+        String area = DataInput.GetText("Entre com a area");
         dbc.Save(nome, matricula, area);
 
     }
@@ -34,7 +33,7 @@ public class DataManager {
             return;
         }
 
-        long id = sc.nextLong();
+        long id = (long) DataInput.GetNumber("Entre com a Id");
         dbc.Delete(id);
 
     }
@@ -44,10 +43,10 @@ public class DataManager {
             System.out.println("Não foi possivel a execução da instrução.");
             return;
         }
-        String nome = sc.next();
-        int matricula = sc.nextInt();
-        String area = sc.next();
-        long id = sc.nextLong();
+        String nome = DataInput.GetText("Entre com o nome");
+        int matricula = DataInput.GetNumber("Enter com a matricula");
+        String area = DataInput.GetText("Entre com a area");
+        long id = (long) DataInput.GetNumber("Entre com a Id");
         dbc.Update(id, nome, matricula, area);
 
     }
@@ -67,7 +66,7 @@ public class DataManager {
             System.out.println("Não foi possivel a execução da instrução.");
             return;
         }
-
+      dbc.CloseConection();
     }
 
 }
